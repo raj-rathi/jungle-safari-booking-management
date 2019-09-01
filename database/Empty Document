@@ -1,0 +1,27 @@
+triggers of project
+
+| t4      | DELETE | package   | begin insert into past_package values(old.package_id,old.pname,old.no_of_days,old.details,old.a_rate,old.c_rate,old.admin_id,old.sdate,old.reporting_place,old.reporting_time,old.discount); end                                                                                                                                                                                                                                                                                                                                                                                                               | AFTER  | 2019-07-14 01:37:41.99 |
+
+
+ ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | latin1_swedish_ci  |
+ 
+ 
+| t2      | INSERT | tour_book | begin set new.date=now(); end                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | BEFORE | 2019-07-14 01:37:43.44 |
+
+ ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | latin1_swedish_ci  |
+ 
+ 
+| t1      | INSERT | tour_book | begin
+set new.amount=(1-((select discount from package where package_id=new.package_id)*0.01))*(new.no_adult*(select a_rate from package where package_id=new.package_id)+new.no_child*(select c_rate from package where package_id=new.package_id));
+update package
+set no_of_seats_available=no_of_seats_available-(new.no_adult+new.no_child)
+where package_id=new.package_id;
+end                                                                                                                                                                                                                          | BEFORE | 2019-07-14 01:37:43.51 |
+
+ ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | latin1_swedish_ci  |
+ 
+ 
+| t3      | DELETE | tour_book | begin if (select sdate from package where package.package_id=old.package_id)<now() then insert into past_bookings values(old.book_id,old.name,old.email,old.city,old.phone,old.no_adult,old.no_child,old.date,old.user_id,old.admin_id,old.package_id,old.guide,old.amount); else insert into cancelled_tours values(old.name,old.email,old.city,old.phone,old.no_adult,old.no_child,old.date,old.user_id,old.admin_id,old.package_id,old.amount,old.book_id); update package set no_of_seats_available=no_of_seats_available+(old.no_adult+old.no_child) where package.package_id=old.package_id; end if; end | AFTER  | 2019-07-14 01:37:43.58 |
+
+ ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | latin1_swedish_ci  |
+

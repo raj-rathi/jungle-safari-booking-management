@@ -1,0 +1,364 @@
+ysql> show tables;
++--------------------+
+| Tables_in_wildlife |
++--------------------+
+| admin              |
+| best_places        |
+| cancelled_tours    |
+| np                 |
+| package            |
+| past_bookings      |
+| past_package       |
+| season             |
+| tour_book          |
+| user               |
+| weather            |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> select * from admin;
++----------+--------+------------+-----------+-------+
+| admin_id | aname  | phone      | password  | np_id |
++----------+--------+------------+-----------+-------+
+|        0 | Main   | 9850385526 | main123   |     0 |
+|        1 | Rahul  | 8087407171 | rahul123  |     1 |
+|        2 | Akshay | 8087407172 | akshay123 |     2 |
+|        3 | Kajal  | 8087407173 | kajal123  |     3 |
++----------+--------+------------+-----------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from best_places;
++----------+----------+----------+----------------------------------------------------------------------------+---------------------------------+--------------------------------+--------------------+
+| place_id | admin_id | pname    | description                                                                | how_to_reach                    | famous_for                     | best_time_to_visit |
++----------+----------+----------+----------------------------------------------------------------------------+---------------------------------+--------------------------------+--------------------+
+|        1 |        1 | Erai Dam | The Erai Dam, situated across River Erai, is a gravity and earth fill dam. | Take a taxi from Chandrapur     | Can spot tigers                | During day         |
+|        2 |        2 | Sattal   | Seven Interconnected lakes                                                 | Take a taxi from JimCorbett NP  | Migratory Birds,lakes,Trekking | During day         |
++----------+----------+----------+----------------------------------------------------------------------------+---------------------------------+--------------------------------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from cancelled_tours;
++------------+----------------------+----------+------------+----------+----------+------------+---------+----------+------------+--------+---------+
+| name       | email                | city     | phone      | no_adult | no_child | date       | user_id | admin_id | package_id | amount | book_id |
++------------+----------------------+----------+------------+----------+----------+------------+---------+----------+------------+--------+---------+
+| Purva      | purva@gmail.com      | Pune     | 9850385536 |        2 |        1 | 2018-09-30 |       9 |        3 |          8 |  37000 |       9 |
+| Mrunal     | mrunal@gmail.com     | Pune     | 9850385536 |        3 |        2 | 2018-09-30 |       7 |        3 |          9 |  13000 |      10 |
+| Rajshekhar | rajshekhar@gmail.com | Kolhapur | 1234567890 |        5 |        2 | 2018-09-30 |       1 |        3 |         11 |  60000 |      13 |
+| Akshay     | akshay@gmail.com     | PUne     | 9123456778 |        3 |        2 | 2018-10-09 |       1 |        3 |          9 |  11700 |      14 |
+| gaurav     | gaurav@gmail.com     | Pune     | 8087407171 |        3 |        2 | 2018-10-10 |       1 |        3 |          9 |  11700 |      16 |
+| gaurav     | gaurav@gmail.com     | Pune     | 8087407171 |        3 |        2 | 2018-10-10 |       1 |        3 |          9 |  11700 |      17 |
+| pranit     | pranit@gmail.com     | Pune     | 1234567654 |        3 |        2 | 2018-10-10 |       1 |        3 |         11 |  36000 |      18 |
+| pranit     | pranit@gmail.com     | Pune     | 1234567654 |        3 |        2 | 2018-10-10 |       1 |        3 |         11 |  36000 |      19 |
+| pranit     | pranit@gmail.com     | pune     | 1233422345 |        2 |        3 | 2018-10-10 |       1 |        3 |         11 |  31500 |      20 |
++------------+----------------------+----------+------------+----------+----------+------------+---------+----------+------------+--------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select * from np;
++-------+------------+
+| np_id | np_name    |
++-------+------------+
+|     0 | Main User  |
+|     1 | tadoba     |
+|     2 | jimcorbett |
+|     3 | gir        |
++-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from package;
++------------+-------------------------+------------+-----------------------+-----------------------------------+--------+--------+----------+------------+-----------------+----------------+----------+
+| package_id | pname                   | no_of_days | no_of_seats_available | details                           | a_rate | c_rate | admin_id | sdate      | reporting_place | reporting_time | discount |
++------------+-------------------------+------------+-----------------------+-----------------------------------+--------+--------+----------+------------+-----------------+----------------+----------+
+|          8 | Expereincing wildlife 3 |          3 |                     3 | Includes:Jeep,Food.Excludes:Stay  |  15000 |   7000 |        3 | 2018-10-15 | Junagadh        | 11:00:00       |       10 |
+|          9 | Be natural 3            |          1 |                    50 | Includes:Jeep,Food.Excludes:Stay  |   3000 |   2000 |        3 | 2018-10-15 | Junagadh        | 11:00:00       |       10 |
+|         11 | Wildernest              |          2 |                    38 | Includes:Jeep,Food.Excludes:Stay. |  10000 |   5000 |        3 | 2018-10-15 | Junagadh        | 11:00:00       |       10 |
++------------+-------------------------+------------+-----------------------+-----------------------------------+--------+--------+----------+------------+-----------------+----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from past_bookings;
++---------+---------+-------------------+----------+------------+----------+----------+------------+---------+----------+-------+--------+------------+
+| book_id | name    | email             | city     | phone      | no_adult | no_child | date       | user_id | admin_id | guide | amount | package_id |
++---------+---------+-------------------+----------+------------+----------+----------+------------+---------+----------+-------+--------+------------+
+|       2 | raj     | raj@gmail.com     | Pune     | 8087407171 |        4 |        3 | 2018-09-30 |       1 |        3 |  NULL |   NULL |          5 |
+|       7 | Shakshi | shakshi@gmail.com | Pune     | 8087407171 |        4 |        2 | 2018-09-30 |       1 |        2 |  NULL |  30000 |          5 |
+|      11 | mrunal  | mrunal@gmail.com  | Punr     | 1234567890 |        5 |        2 | 2018-09-30 |       7 |        1 |  NULL |  82000 |          5 |
+|      18 | Raj     | asdasd@gmail.com  | Amravati | 9075286759 |        2 |        3 | 2018-10-01 |       1 |        1 |  NULL |  37600 |          5 |
++---------+---------+-------------------+----------+------------+----------+----------+------------+---------+----------+-------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from tour_book;
++--------+------------------+------+------------+----------+----------+---------------------+---------+----------+------------+-------+--------+---------+
+| name   | email            | city | phone      | no_adult | no_child | date                | user_id | admin_id | package_id | guide | amount | book_id |
++--------+------------------+------+------------+----------+----------+---------------------+---------+----------+------------+-------+--------+---------+
+| Akshay | akshay@gmail.com | Pune | 9850385536 |        3 |        2 | 2018-10-11 18:31:38 |       1 |        3 |         11 |  NULL |  36000 |      21 |
+| Akshay | akshay@gmail.com | PUNE | 8087407171 |        4 |        3 | 2018-10-12 01:07:51 |       1 |        3 |         11 |  NULL |  49500 |      22 |
++--------+------------------+------+------------+----------+----------+---------------------+---------+----------+------------+-------+--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from past_package;
++------------+-------------------------+------------+----------------------------------+--------+--------+----------+------------+-----------------+----------------+----------+
+| package_id | pname                   | no_of_days | details                          | a_rate | c_rate | admin_id | sdate      | reporting_place | reporting_time | discount |
++------------+-------------------------+------------+----------------------------------+--------+--------+----------+------------+-----------------+----------------+----------+
+|          5 | Expereincing wildlife 2 |          2 | Includes:Jeep,Food.Excludes:Stay |   6000 |   3000 |        2 | 2018-10-01 | Ramnagar        | 11:00:00       |       10 |
+|          6 | Be natural 2            |          3 | Includes:Jeep,Food.Excludes:Stay |  12000 |   6000 |        2 | 2018-10-10 | Ramnagar        | 11:00:00       |       10 |
+|         12 | paradise                |          3 | Includes:Stay,Food               |  14000 |   6000 |        1 | 2018-10-06 | Nagpur          | 00:00:00       |        5 |
++------------+-------------------------+------------+----------------------------------+--------+--------+----------+------------+-----------------+----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from season;
++------+-----------+-----------------+
+| s_id | sname     | duration        |
++------+-----------+-----------------+
+|  101 | Spring    | Feb18-April19   |
+|  102 | Summer    | April19-June21  |
+|  103 | Monsoon   | June21-August22 |
+|  104 | Autumn    | August22-Oct23  |
+|  105 | Prewinter | Oct23-Dec21     |
+|  106 | Winter    | Dec21-Feb18     |
++------+-----------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from weather;
++----------+------+-----------------------+
+| admin_id | s_id | description           |
++----------+------+-----------------------+
+|        1 |  101 | Mild,Pleasant Weather |
+|        1 |  102 | Hot Weather           |
+|        1 |  103 | Heavily Rains         |
+|        1 |  104 | Hot Weather recedes   |
+|        1 |  105 | Moderate Cold         |
+|        1 |  106 | Extreme Cold          |
+|        2 |  102 | Hot Weather           |
+|        2 |  103 | Heavily Rains         |
+|        2 |  104 | Hot Weather recedes   |
+|        2 |  105 | Moderate Cold         |
+|        2 |  106 | Extreme Cold          |
+|        2 |  101 | Mild,Pleasant Weather |
+|        3 |  101 | Mild,Pleasant Weather |
+|        3 |  102 | Hot Weather           |
+|        3 |  103 | Heavily Rains         |
+|        3 |  104 | Hot Weather recedes   |
+|        3 |  105 | Moderate Cold         |
+|        3 |  106 | Extreme Cold          |
++----------+------+-----------------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from user;
++---------+---------+------------+----------------------------+----------+------------+
+| user_id | name    | phone_no   | email_id                   | city     | password   |
++---------+---------+------------+----------------------------+----------+------------+
+|       1 | Raj     | 9075286759 | 21raj.rathi@gmail.com      | Amravati | raj123     |
+|       6 | Mahima  | 7709101702 | mahima@gmail.com           | Nasik    | mahimia123 |
+|       7 | mrunal  | 9850385536 | mrunal@gmail.com           | Kolhapur | mrunal123  |
+|       8 | Gautami | 8087407171 | gautami@gmail.com          | Pune     | gautami123 |
+|       9 | Rahul   | 8087407171 | rahul@gmail.com            | Pune     | rahul123   |
+|      10 | asd     | 8793223442 | p@gmail.com                | pune     | asd        |
+|      11 | Pra     | 8793223242 | pranitshelke.spd@gmail.com | PUNE     | asdf1234   |
++---------+---------+------------+----------------------------+----------+------------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> show tables;
++--------------------+
+| Tables_in_wildlife |
++--------------------+
+| admin              |
+| best_places        |
+| cancelled_tours    |
+| np                 |
+| package            |
+| past_bookings      |
+| past_package       |
+| season             |
+| tour_book          |
+| user               |
+| weather            |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> desc admin;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| admin_id | smallint(6) | NO   | PRI | NULL    |       |
+| aname    | varchar(20) | YES  |     | NULL    |       |
+| phone    | varchar(10) | YES  |     | NULL    |       |
+| password | varchar(10) | YES  |     | NULL    |       |
+| np_id    | smallint(6) | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc admin_places;
+ERROR 1146 (42S02): Table 'wildlife.admin_places' doesn't exist
+mysql> desc best_places;
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| place_id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| admin_id           | smallint(6)  | YES  | MUL | NULL    |                |
+| pname              | varchar(30)  | YES  |     | NULL    |                |
+| description        | varchar(300) | YES  |     | NULL    |                |
+| how_to_reach       | varchar(500) | YES  |     | NULL    |                |
+| famous_for         | varchar(500) | YES  |     | NULL    |                |
+| best_time_to_visit | varchar(500) | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> desc cancelled_tours;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| name       | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| phone      | varchar(10) | YES  |     | NULL    |       |
+| no_adult   | smallint(6) | YES  |     | NULL    |       |
+| no_child   | smallint(6) | YES  |     | NULL    |       |
+| date       | date        | YES  |     | NULL    |       |
+| user_id    | int(11)     | YES  | MUL | NULL    |       |
+| admin_id   | smallint(6) | YES  | MUL | NULL    |       |
+| package_id | smallint(6) | YES  | MUL | NULL    |       |
+| amount     | int(11)     | YES  |     | NULL    |       |
+| book_id    | int(11)     | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+12 rows in set (0.00 sec)
+
+mysql> desc np;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| np_id   | smallint(6) | NO   | PRI | NULL    |       |
+| np_name | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc package;
++-----------------------+--------------+------+-----+---------+----------------+
+| Field                 | Type         | Null | Key | Default | Extra          |
++-----------------------+--------------+------+-----+---------+----------------+
+| package_id            | smallint(6)  | NO   | PRI | NULL    | auto_increment |
+| pname                 | varchar(30)  | YES  |     | NULL    |                |
+| no_of_days            | smallint(6)  | YES  |     | NULL    |                |
+| no_of_seats_available | int(11)      | YES  |     | NULL    |                |
+| details               | varchar(200) | YES  |     | NULL    |                |
+| a_rate                | int(11)      | YES  |     | NULL    |                |
+| c_rate                | int(11)      | YES  |     | NULL    |                |
+| admin_id              | smallint(6)  | YES  | MUL | NULL    |                |
+| sdate                 | date         | YES  |     | NULL    |                |
+| reporting_place       | varchar(20)  | YES  |     | NULL    |                |
+| reporting_time        | time         | YES  |     | NULL    |                |
+| discount              | smallint(6)  | YES  |     | NULL    |                |
++-----------------------+--------------+------+-----+---------+----------------+
+12 rows in set (0.00 sec)
+
+mysql> desc past_bookings;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| book_id    | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| phone      | varchar(10) | YES  |     | NULL    |       |
+| no_adult   | smallint(6) | YES  |     | NULL    |       |
+| no_child   | smallint(6) | YES  |     | NULL    |       |
+| date       | date        | YES  |     | NULL    |       |
+| user_id    | int(11)     | YES  | MUL | NULL    |       |
+| admin_id   | smallint(6) | YES  | MUL | NULL    |       |
+| guide      | tinyint(4)  | YES  |     | NULL    |       |
+| amount     | int(11)     | YES  |     | NULL    |       |
+| package_id | smallint(6) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+13 rows in set (0.01 sec)
+
+mysql> desc past_package;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| package_id      | smallint(6)  | NO   | PRI | NULL    |       |
+| pname           | varchar(30)  | YES  |     | NULL    |       |
+| no_of_days      | smallint(6)  | YES  |     | NULL    |       |
+| details         | varchar(200) | YES  |     | NULL    |       |
+| a_rate          | int(11)      | YES  |     | NULL    |       |
+| c_rate          | int(11)      | YES  |     | NULL    |       |
+| admin_id        | smallint(6)  | YES  | MUL | NULL    |       |
+| sdate           | date         | YES  |     | NULL    |       |
+| reporting_place | varchar(20)  | YES  |     | NULL    |       |
+| reporting_time  | time         | YES  |     | NULL    |       |
+| discount        | smallint(6)  | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> desc season;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| s_id     | smallint(6) | NO   | PRI | NULL    |       |
+| sname    | varchar(20) | YES  |     | NULL    |       |
+| duration | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc tour_book;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| name       | varchar(20) | YES  |     | NULL    |                |
+| email      | varchar(20) | YES  |     | NULL    |                |
+| city       | varchar(20) | YES  |     | NULL    |                |
+| phone      | varchar(10) | YES  |     | NULL    |                |
+| no_adult   | smallint(6) | YES  |     | NULL    |                |
+| no_child   | smallint(6) | YES  |     | NULL    |                |
+| date       | datetime    | YES  |     | NULL    |                |
+| user_id    | int(11)     | YES  | MUL | NULL    |                |
+| admin_id   | smallint(6) | YES  | MUL | NULL    |                |
+| package_id | smallint(6) | YES  | MUL | NULL    |                |
+| guide      | tinyint(4)  | YES  |     | NULL    |                |
+| amount     | int(11)     | YES  |     | NULL    |                |
+| book_id    | int(11)     | NO   | PRI | NULL    | auto_increment |
++------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.00 sec)
+
+mysql> desc user;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| user_id  | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(30) | YES  |     | NULL    |                |
+| phone_no | varchar(10) | YES  |     | NULL    |                |
+| email_id | varchar(50) | YES  |     | NULL    |                |
+| city     | varchar(20) | YES  |     | NULL    |                |
+| password | varchar(15) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> desc weather;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| admin_id    | smallint(6)  | YES  | MUL | NULL    |       |
+| s_id        | smallint(6)  | YES  | MUL | NULL    |       |
+| description | varchar(200) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
